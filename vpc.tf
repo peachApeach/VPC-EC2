@@ -1,11 +1,11 @@
 
-resource "aws_vpc" "tutorial-vpc" {
+resource "aws_vpc" "yhj-vpc" {
   cidr_block = "10.0.0.0/16"
   instance_tenancy = "default"
   enable_dns_hostnames = true
   enable_dns_support = true
 
-  tags = {"Name" = "tutorial-vpc"}
+  tags = {"Name" = "yhj-vpc"}
 
 }
 
@@ -13,9 +13,9 @@ resource "aws_vpc" "tutorial-vpc" {
 # Network ACL
 ################################################################################
 resource "aws_default_network_acl" "aws_default_network_acl" {
-  default_network_acl_id = aws_vpc.tutorial-vpc.default_network_acl_id
+  default_network_acl_id = aws_vpc.yhj-vpc.default_network_acl_id
 
-  tags = {"Name" = "tutorialVPC-acl"}
+  tags = {"Name" = "yhjVPC-acl"}
 
   # inbound
   ingress {
@@ -42,28 +42,28 @@ resource "aws_default_network_acl" "aws_default_network_acl" {
 ################################################################################
 # Internet Gateway
 ################################################################################
-resource "aws_internet_gateway" "tutorial-internet-gateway" {
-  vpc_id = aws_vpc.tutorial-vpc.id
+resource "aws_internet_gateway" "yhj-internet-gateway" {
+  vpc_id = aws_vpc.yhj-vpc.id
 
-  tags = {"Name" = "tutorial-internet-gatway"}
+  tags = {"Name" = "yhj-internet-gatway"}
 }
 
 ################################################################################
 # Private Subnets - ap-northeast-2a
 ################################################################################
 resource "aws_subnet" "private-northeast-2a" {
-  vpc_id = aws_vpc.tutorial-vpc.id
+  vpc_id = aws_vpc.yhj-vpc.id
   cidr_block = "10.0.1.0/24"
   availability_zone = "ap-northeast-2a"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "tutorialVPC-subnet-private1-ap-north-2a"}
+  tags = {"Name" = "yhjVPC-subnet-private1-ap-north-2a"}
 
 }
 
 resource "aws_route_table" "private-northeast-2a" {
-  vpc_id = aws_vpc.tutorial-vpc.id
-  tags = {"Name" = "tutorialVPC-rtb-private-ap-northeast-2a"}
+  vpc_id = aws_vpc.yhj-vpc.id
+  tags = {"Name" = "yhjVPC-rtb-private-ap-northeast-2a"}
 }
 
 resource "aws_route_table_association" "private-northeast-2a" {
@@ -75,18 +75,18 @@ resource "aws_route_table_association" "private-northeast-2a" {
 # Private Subnets - ap-northeast-2b
 ################################################################################
 resource "aws_subnet" "private-northeast-2b" {
-  vpc_id = aws_vpc.tutorial-vpc.id
+  vpc_id = aws_vpc.yhj-vpc.id
   cidr_block = "10.0.2.0/24"
   availability_zone = "ap-northeast-2b"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "tutorialVPC-subnet-private1-ap-north-2b"}
+  tags = {"Name" = "yhjVPC-subnet-private1-ap-north-2b"}
 
 }
 
 resource "aws_route_table" "private-northeast-2b" {
-  vpc_id = aws_vpc.tutorial-vpc.id
-  tags = {"Name" = "tutorialVPC-rtb-private-ap-northeast-2b"}
+  vpc_id = aws_vpc.yhj-vpc.id
+  tags = {"Name" = "yhjVPC-rtb-private-ap-northeast-2b"}
 }
 
 resource "aws_route_table_association" "private-northeast-2b" {
@@ -98,29 +98,29 @@ resource "aws_route_table_association" "private-northeast-2b" {
 # Public Subnets
 ################################################################################
 resource "aws_subnet" "public-subnet-2a" {
-  vpc_id = aws_vpc.tutorial-vpc.id
+  vpc_id = aws_vpc.yhj-vpc.id
   cidr_block = "10.0.3.0/24"
   availability_zone = "ap-northeast-2a"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "tutorialVPC-subnet-public-ap-north-2a"}
+  tags = {"Name" = "yhjVPC-subnet-public-ap-north-2a"}
 
 }
 
 resource "aws_subnet" "public-subnet-2b" {
-  vpc_id = aws_vpc.tutorial-vpc.id
+  vpc_id = aws_vpc.yhj-vpc.id
   cidr_block = "10.0.4.0/24"
   availability_zone = "ap-northeast-2b"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "tutorialVPC-subnet-public-ap-north-2b"}
+  tags = {"Name" = "yhjVPC-subnet-public-ap-north-2b"}
 
 }
 
 # 라우팅 테이블 선언 
 resource "aws_route_table" "public-rtb" {
-  vpc_id = aws_vpc.tutorial-vpc.id
-  tags = {"Name" = "tutorialVPC-rtb-public"}
+  vpc_id = aws_vpc.yhj-vpc.id
+  tags = {"Name" = "yhjVPC-rtb-public"}
 }
 
 # 라우팅 테이블에 맵핑 
@@ -138,7 +138,7 @@ resource "aws_route_table_association" "public-rtb-association-2b" {
 resource "aws_route" "public_internet_gateway" {    
   route_table_id = aws_route_table.public-rtb.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.tutorial-internet-gateway.id
+  gateway_id = aws_internet_gateway.yhj-internet-gateway.id
   timeouts {
     create = "5m"
   }
@@ -147,17 +147,17 @@ resource "aws_route" "public_internet_gateway" {
 ################################################################################
 # Web Hosting Security Group
 ################################################################################
-resource "aws_security_group" "tutorialVPC-SecurityGroup" {
-  vpc_id = aws_vpc.tutorial-vpc.id
-  name = "tutorialVPC-SecuritiyGroup"
-  description = "tutorialVPC-SecuritiyGroup"
+resource "aws_security_group" "yhjVPC-SecurityGroup" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  name = "yhjVPC-SecuritiyGroup"
+  description = "yhjVPC-SecuritiyGroup"
 
-  tags = {"Name"="tutorialVPC-SecuritiyGroup"}
+  tags = {"Name"="yhjVPC-SecuritiyGroup"}
 }
 
 # 인바운드 규칙 추가 
 resource "aws_security_group_rule" "securityGroupInbound-http" {
-  security_group_id = aws_security_group.tutorialVPC-SecurityGroup.id
+  security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
   type = "ingress"
   from_port = 80
   to_port = 80
@@ -166,7 +166,7 @@ resource "aws_security_group_rule" "securityGroupInbound-http" {
 }
 
 resource "aws_security_group_rule" "securityGroupInbound-ssh" {
-  security_group_id = aws_security_group.tutorialVPC-SecurityGroup.id
+  security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
   type = "ingress"
   from_port = 22
   to_port = 22
@@ -176,7 +176,7 @@ resource "aws_security_group_rule" "securityGroupInbound-ssh" {
 
 # 아웃바운드 규칙 추가
 resource "aws_security_group_rule" "securityGroupOutbound" {
-  security_group_id = aws_security_group.tutorialVPC-SecurityGroup.id
+  security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
   type = "egress"
   from_port = 0
   to_port = 0
@@ -187,20 +187,20 @@ resource "aws_security_group_rule" "securityGroupOutbound" {
 ################################################################################
 # DB Security Group
 ################################################################################
-resource "aws_security_group" "tutorialVPC-DB-SG" {
-  vpc_id = aws_vpc.tutorial-vpc.id
-  name = "tutorialVPC-DB-SecuritiyGroup"
-  description = "tutorialVPC-DB-SecuritiyGroup"
+resource "aws_security_group" "yhjVPC-DB-SG" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  name = "yhjVPC-DB-SecuritiyGroup"
+  description = "yhjVPC-DB-SecuritiyGroup"
 
-  tags = {"Name"="tutorialVPC-DB-SecuritiyGroup"}
+  tags = {"Name"="yhjVPC-DB-SecuritiyGroup"}
 }
 
 resource "aws_security_group_rule" "DBsecurityGroupInbound-http" {
-  security_group_id = aws_security_group.tutorialVPC-DB-SG.id
+  security_group_id = aws_security_group.yhjVPC-DB-SG.id
   type = "ingress"
   from_port = 3306
   to_port = 3306
   protocol = "TCP"
-  source_security_group_id = aws_security_group.tutorialVPC-SecurityGroup.id
+  source_security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
 }
 
