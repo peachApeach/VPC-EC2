@@ -1,11 +1,11 @@
 
 resource "aws_vpc" "yhj-vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = "172.5.0.0/16"
   instance_tenancy = "default"
   enable_dns_hostnames = true
   enable_dns_support = true
 
-  tags = {"Name" = "yhj-vpc"}
+  tags = {"Name" = "${var.vpc_name}"}
 
 }
 
@@ -15,7 +15,7 @@ resource "aws_vpc" "yhj-vpc" {
 resource "aws_default_network_acl" "aws_default_network_acl" {
   default_network_acl_id = aws_vpc.yhj-vpc.default_network_acl_id
 
-  tags = {"Name" = "yhjVPC-acl"}
+  tags = {"Name" = "${var.net-acl-name}"}
 
   # inbound
   ingress {
@@ -45,7 +45,7 @@ resource "aws_default_network_acl" "aws_default_network_acl" {
 resource "aws_internet_gateway" "yhj-internet-gateway" {
   vpc_id = aws_vpc.yhj-vpc.id
 
-  tags = {"Name" = "yhj-internet-gatway"}
+  tags = {"Name" = "${var.internet-gtw-name}"}
 }
 
 ################################################################################
@@ -57,13 +57,13 @@ resource "aws_subnet" "private-northeast-2a" {
   availability_zone = "ap-northeast-2a"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "yhjVPC-subnet-private1-ap-north-2a"}
+  tags = {"Name" = "${var.private-subnet-a-name}"}
 
 }
 
 resource "aws_route_table" "private-northeast-2a" {
   vpc_id = aws_vpc.yhj-vpc.id
-  tags = {"Name" = "yhjVPC-rtb-private-ap-northeast-2a"}
+  tags = {"Name" = "${var.private-rtb-a-name}"}
 }
 
 resource "aws_route_table_association" "private-northeast-2a" {
@@ -80,13 +80,13 @@ resource "aws_subnet" "private-northeast-2b" {
   availability_zone = "ap-northeast-2b"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "yhjVPC-subnet-private1-ap-north-2b"}
+  tags = {"Name" = "${var.private-subnet-b-name}"}
 
 }
 
 resource "aws_route_table" "private-northeast-2b" {
   vpc_id = aws_vpc.yhj-vpc.id
-  tags = {"Name" = "yhjVPC-rtb-private-ap-northeast-2b"}
+  tags = {"Name" = "${var.private-rtb-b-name}"}
 }
 
 resource "aws_route_table_association" "private-northeast-2b" {
@@ -103,7 +103,7 @@ resource "aws_subnet" "public-subnet-2a" {
   availability_zone = "ap-northeast-2a"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "yhjVPC-subnet-public-ap-north-2a"}
+  tags = {"Name" = "${var.public-subnet-a-name}"}
 
 }
 
@@ -113,14 +113,14 @@ resource "aws_subnet" "public-subnet-2b" {
   availability_zone = "ap-northeast-2b"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "yhjVPC-subnet-public-ap-north-2b"}
+  tags = {"Name" = "${var.public-subnet-2b-name}"}
 
 }
 
 # 라우팅 테이블 선언 
 resource "aws_route_table" "public-rtb" {
   vpc_id = aws_vpc.yhj-vpc.id
-  tags = {"Name" = "yhjVPC-rtb-public"}
+  tags = {"Name" = "${var.public-rtb-name}"}
 }
 
 # 라우팅 테이블에 맵핑 
@@ -149,10 +149,10 @@ resource "aws_route" "public_internet_gateway" {
 ################################################################################
 resource "aws_security_group" "yhjVPC-SecurityGroup" {
   vpc_id = aws_vpc.yhj-vpc.id
-  name = "yhjVPC-SecuritiyGroup"
-  description = "yhjVPC-SecuritiyGroup"
+  name = "${var.vpc_security_group-name}"
+  description = "${var.vpc_security_group-name}"
 
-  tags = {"Name"="yhjVPC-SecuritiyGroup"}
+  tags = {"Name"="${var.vpc_security_group-name}"}
 }
 
 # 인바운드 규칙 추가 
@@ -183,24 +183,3 @@ resource "aws_security_group_rule" "securityGroupOutbound" {
   protocol = -1
   cidr_blocks = ["0.0.0.0/0"]
 }
-
-################################################################################
-# DB Security Group
-################################################################################
-resource "aws_security_group" "yhjVPC-DB-SG" {
-  vpc_id = aws_vpc.yhj-vpc.id
-  name = "yhjVPC-DB-SecuritiyGroup"
-  description = "yhjVPC-DB-SecuritiyGroup"
-
-  tags = {"Name"="yhjVPC-DB-SecuritiyGroup"}
-}
-
-resource "aws_security_group_rule" "DBsecurityGroupInbound-http" {
-  security_group_id = aws_security_group.yhjVPC-DB-SG.id
-  type = "ingress"
-  from_port = 3306
-  to_port = 3306
-  protocol = "TCP"
-  source_security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
-}
-

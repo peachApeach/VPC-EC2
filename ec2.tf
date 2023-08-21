@@ -13,5 +13,5 @@ resource "aws_instance" "app_server" {
                 echo "Hello, World" > index.html
                 nohup busybox httpd -f -p ${var.server_port} &
                 EOF
-  tags = {"Name"="yhjInstance"}
+  tags = {"Name"="${var.instance-name}"}
 }
