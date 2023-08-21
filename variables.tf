@@ -46,16 +46,16 @@ variable "private-rtb-a-name" {
   default = "yhjVPC-rtb-private-ap-northeast-2a"
 }
 
-variable "private-subnet-b-name" {
-  description = "b private subnet name"
+variable "private-subnet-c-name" {
+  description = "c private subnet name"
   type="String"
-  default = "yhjVPC-subnet-private1-ap-north-2b"
+  default = "yhjVPC-subnet-private1-ap-north-2c"
 }
 
-variable "private-rtb-b-name" {
-  description = "b private route table name"
+variable "private-rtb-c-name" {
+  description = "c private route table name"
   type="String"
-  default = "yhjVPC-rtb-private-ap-northeast-2b"
+  default = "yhjVPC-rtb-private-ap-northeast-2c"
 }
 
 variable "private-subnet-d-name" {
@@ -76,10 +76,10 @@ variable "public-subnet-a-name" {
   default = "yhjVPC-subnet-public-ap-north-2a"
 }
 
-variable "public-subnet-b-name" {
+variable "public-subnet-c-name" {
   description = "b public subnet name"
   type="String"
-  default = "yhjVPC-subnet-public-ap-north-2b"
+  default = "yhjVPC-subnet-public-ap-north-2c"
 }
 
 variable "public-subnet-d-name" {
