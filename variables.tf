@@ -82,6 +82,12 @@ variable "public-subnet-b-name" {
   default = "yhjVPC-subnet-public-ap-north-2b"
 }
 
+variable "public-subnet-d-name" {
+  description = "d public subnet name"
+  type="String"
+  default = "yhjVPC-subnet-public-ap-north-2d"
+}
+
 variable "public-rtb-name" {
   description = "public route table name"
   type="String"

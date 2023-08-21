@@ -95,6 +95,29 @@ resource "aws_route_table_association" "private-northeast-2b" {
 }
 
 ################################################################################
+# Private Subnets - ap-northeast-2d
+################################################################################
+resource "aws_subnet" "private-northeast-2d" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  cidr_block = "10.0.2.0/24"
+  availability_zone = "ap-northeast-2d"
+  # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
+
+  tags = {"Name" = "${var.private-subnet-d-name}"}
+
+}
+
+resource "aws_route_table" "private-northeast-2d" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  tags = {"Name" = "${var.private-rtb-d-name}"}
+}
+
+resource "aws_route_table_association" "private-northeast-2d" {
+  subnet_id = aws_subnet.private-northeast-2d.id
+  route_table_id = aws_route_table.private-northeast-2d
+}
+
+################################################################################
 # Public Subnets
 ################################################################################
 resource "aws_subnet" "public-subnet-2a" {
@@ -117,6 +140,16 @@ resource "aws_subnet" "public-subnet-2b" {
 
 }
 
+resource "aws_subnet" "public-subnet-2d" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  cidr_block = "10.0.4.0/24"
+  availability_zone = "ap-northeast-2d"
+  # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
+
+  tags = {"Name" = "${var.public-subnet-2d-name}"}
+
+}
+
 # 라우팅 테이블 선언 
 resource "aws_route_table" "public-rtb" {
   vpc_id = aws_vpc.yhj-vpc.id
@@ -125,12 +158,17 @@ resource "aws_route_table" "public-rtb" {
 
 # 라우팅 테이블에 맵핑 
 resource "aws_route_table_association" "public-rtb-association-2a" {
-  subnet_id = aws_subnet.public-subnet-2b.id
+  subnet_id = aws_subnet.public-subnet-2a.id
   route_table_id = aws_route_table.public-rtb.id
 }
 
 resource "aws_route_table_association" "public-rtb-association-2b" {
-  subnet_id = aws_subnet.public-subnet-2a.id
+  subnet_id = aws_subnet.public-subnet-2b.id
+  route_table_id = aws_route_table.public-rtb.id
+}
+
+resource "aws_route_table_association" "public-rtb-association-2d" {
+  subnet_id = aws_subnet.public-subnet-2d.id
   route_table_id = aws_route_table.public-rtb.id
 }
 
