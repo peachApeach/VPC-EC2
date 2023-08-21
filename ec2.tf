@@ -2,7 +2,7 @@
 # EC2 instance
 ################################################################################
 resource "aws_instance" "app_server" {
-  ami           = "ami-0c6e5afdd23291f73"
+  ami           = "ami-0c9c942bd7bf113a2"
   instance_type = "t3.micro"
   key_name = "${var.keyName}"
   subnet_id = aws_subnet.public-subnet-2a.id
