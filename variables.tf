@@ -10,6 +10,12 @@ variable "instance-name" {
   default = "yhjInstance"
 }
 
+variable "server_port" {
+  description = "server port"
+  type="String"
+  default = "80"
+}
+
 variable "vpc-name" {
   description = "vpc name"
   type="String"
@@ -50,6 +56,18 @@ variable "private-rtb-b-name" {
   description = "b private route table name"
   type="String"
   default = "yhjVPC-rtb-private-ap-northeast-2b"
+}
+
+variable "private-subnet-d-name" {
+  description = "d private subnet name"
+  type="String"
+  default = "yhjVPC-subnet-private1-ap-north-2d"
+}
+
+variable "private-rtb-d-name" {
+  description = "d private route table name"
+  type="String"
+  default = "yhjVPC-rtb-private-ap-northeast-2d"
 }
 
 variable "public-subnet-a-name" {

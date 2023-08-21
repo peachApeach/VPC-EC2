@@ -3,7 +3,7 @@
 ################################################################################
 resource "aws_instance" "app_server" {
   ami           = "ami-0c9c942bd7bf113a2"
-  instance_type = "t3.micro"
+  instance_type = "t2.micro"
   key_name = "${var.keyName}"
   subnet_id = aws_subnet.public-subnet-2a.id
   associate_public_ip_address = true
