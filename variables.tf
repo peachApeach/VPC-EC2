@@ -161,3 +161,8 @@ variable "public-alb-name" {
   type = string
   default = "yhjalb"
 }
+
+variable "alb-tg-name" {
+  type = string
+  default = "yhjAlb-tg"
+}

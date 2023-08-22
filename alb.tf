@@ -68,3 +68,16 @@ resource "aws_lb_target_group_attachment" "alb-tg-ec2-2" {
 #   target_id = aws_instance.app_server-3.id
 #   port = 80
 # }
+
+################################################################################
+# Add Listener 
+################################################################################
+resource "aws_lb_listener" "alb-Listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  port = "80"
+  protocol = "HTTP"
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.alb-tg.arn
+  }
+}
