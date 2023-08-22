@@ -53,7 +53,7 @@ resource "aws_internet_gateway" "yhj-internet-gateway" {
 ################################################################################
 resource "aws_subnet" "private-northeast-2a" {
   vpc_id = aws_vpc.yhj-vpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = "172.5.128.0/20"
   availability_zone = "ap-northeast-2a"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
@@ -76,7 +76,7 @@ resource "aws_route_table_association" "private-northeast-2a" {
 ################################################################################
 resource "aws_subnet" "private-northeast-2c" {
   vpc_id = aws_vpc.yhj-vpc.id
-  cidr_block = "10.0.2.0/24"
+  cidr_block = "172.5.144.0/20"
   availability_zone = "ap-northeast-2c"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
@@ -99,7 +99,7 @@ resource "aws_route_table_association" "private-northeast-2c" {
 ################################################################################
 resource "aws_subnet" "private-northeast-2d" {
   vpc_id = aws_vpc.yhj-vpc.id
-  cidr_block = "10.0.2.0/24"
+  cidr_block = "172.5.160.0/20"
   availability_zone = "ap-northeast-2d"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
@@ -122,7 +122,7 @@ resource "aws_route_table_association" "private-northeast-2d" {
 ################################################################################
 resource "aws_subnet" "public-subnet-2a" {
   vpc_id = aws_vpc.yhj-vpc.id
-  cidr_block = "10.0.3.0/24"
+  cidr_block = "172.5.0.0/20"
   availability_zone = "ap-northeast-2a"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
@@ -132,7 +132,7 @@ resource "aws_subnet" "public-subnet-2a" {
 
 resource "aws_subnet" "public-subnet-2c" {
   vpc_id = aws_vpc.yhj-vpc.id
-  cidr_block = "10.0.4.0/24"
+  cidr_block = "172.5.16.0/20"
   availability_zone = "ap-northeast-2c"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
@@ -142,7 +142,7 @@ resource "aws_subnet" "public-subnet-2c" {
 
 resource "aws_subnet" "public-subnet-2d" {
   vpc_id = aws_vpc.yhj-vpc.id
-  cidr_block = "10.0.4.0/24"
+  cidr_block = "172.5.32.0/20"
   availability_zone = "ap-northeast-2d"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
