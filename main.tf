@@ -1,10 +1,4 @@
 terraform {
-  cloud {
-    organization = "apeach"
-    workspaces {
-      name = "terraform-aws-full-stack"
-    }
-  }
 
   required_providers {
     aws = {
