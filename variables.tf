@@ -27,6 +27,13 @@ variable "server_port" {
   default = "80"
 }
 
+# ec2 security group
+variable "ec2-sg-name" {
+  type = string
+  default = "yhjEc2-sg"
+}
+
+# vpc
 variable "vpc-name" {
   description = "vpc name"
   type=string
