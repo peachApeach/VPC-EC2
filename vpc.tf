@@ -114,7 +114,7 @@ resource "aws_route_table" "private-northeast-2d" {
 
 resource "aws_route_table_association" "private-northeast-2d" {
   subnet_id = aws_subnet.private-northeast-2d.id
-  route_table_id = aws_route_table.private-northeast-2d
+  route_table_id = aws_route_table.private-northeast-2d.id
 }
 
 ################################################################################
@@ -136,7 +136,7 @@ resource "aws_subnet" "public-subnet-2c" {
   availability_zone = "ap-northeast-2c"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "${var.public-subnet-2c-name}"}
+  tags = {"Name" = "${var.public-subnet-c-name}"}
 
 }
 
@@ -146,7 +146,7 @@ resource "aws_subnet" "public-subnet-2d" {
   availability_zone = "ap-northeast-2d"
   # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
-  tags = {"Name" = "${var.public-subnet-2d-name}"}
+  tags = {"Name" = "${var.public-subnet-d-name}"}
 
 }
 
@@ -209,7 +209,7 @@ resource "aws_security_group_rule" "securityGroupInbound-ssh" {
   from_port = 22
   to_port = 22
   protocol = "TCP"
-  cidr_blocks = [var.myIP]
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 # 아웃바운드 규칙 추가
