@@ -183,6 +183,86 @@ resource "aws_route" "public_internet_gateway" {
 }
 
 ################################################################################
+# Elastic IP
+################################################################################
+resource "aws_eip" "eip_nat_a" {
+  vpc   = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = { Name="${var.eip-nat-a-name}"}
+}
+
+resource "aws_eip" "eip_nat_c" {
+  vpc   = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = { Name="${var.eip-nat-c-name}"}
+}
+
+resource "aws_eip" "eip_nat_d" {
+  vpc   = true
+
+  lifecycle {
+    create_before_destroy = true
+  }
+  
+  tags = { Name="${var.eip-nat-d-name}"}
+}
+
+################################################################################
+# NAT Gateway
+################################################################################
+resource "aws_nat_gateway" "public-nat-a" {
+  allocation_id = aws_eip.eip_nat_a.id
+  subnet_id = aws_subnet.private-northeast-2a.id
+  tags = { Name = "${var.public-nat-a-name}"}
+  depends_on = [ aws_internet_gateway.yhj-internet-gateway ]
+}
+
+resource "aws_nat_gateway" "public-nat-c" {
+  allocation_id = aws_eip.eip_nat_c.id
+  subnet_id = aws_subnet.private-northeast-2c.id
+  tags = { Name = "${var.public-nat-c-name}"}
+  depends_on = [ aws_internet_gateway.yhj-internet-gateway ]
+}
+
+resource "aws_nat_gateway" "public-nat-d" {
+  allocation_id = aws_eip.eip_nat_d.id
+  subnet_id = aws_subnet.private-northeast-2d.id
+  tags = { Name = "${var.public-nat-d-name}"}
+  depends_on = [ aws_internet_gateway.yhj-internet-gateway ]
+}
+
+################################################################################
+# NAT Gateway 라우팅 테이블 맵핑
+################################################################################
+# vpc 라우팅 테이블에 항목을 생성하기 위한 리소스 
+resource "aws_route" "private-nat-a" {
+  route_table_id = aws_route_table.private-northeast-2a.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.public-nat-a.id
+}
+
+resource "aws_route" "private-nat-c" {
+  route_table_id = aws_route_table.private-northeast-2c.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.public-nat-c.id
+}
+
+resource "aws_route" "private-nat-d" {
+  route_table_id = aws_route_table.private-northeast-2d.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.public-nat-d.id
+}
+
+
+################################################################################
 # Web Hosting Security Group
 ################################################################################
 resource "aws_security_group" "yhjVPC-SecurityGroup" {

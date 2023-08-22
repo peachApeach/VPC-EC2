@@ -36,7 +36,7 @@ variable "internet-gtw-name" {
 variable "private-subnet-a-name" {
   description = "a private subnet name"
   type=string
-  default = "yhjVPC-subnet-private1-ap-north-2a"
+  default = "yhjVPC-subnet-private1-ap-northeast-2a"
 }
 
 variable "private-rtb-a-name" {
@@ -48,7 +48,7 @@ variable "private-rtb-a-name" {
 variable "private-subnet-c-name" {
   description = "c private subnet name"
   type=string
-  default = "yhjVPC-subnet-private1-ap-north-2c"
+  default = "yhjVPC-subnet-private1-ap-northeast-2c"
 }
 
 variable "private-rtb-c-name" {
@@ -60,7 +60,7 @@ variable "private-rtb-c-name" {
 variable "private-subnet-d-name" {
   description = "d private subnet name"
   type=string
-  default = "yhjVPC-subnet-private1-ap-north-2d"
+  default = "yhjVPC-subnet-private1-ap-northeast-2d"
 }
 
 variable "private-rtb-d-name" {
@@ -72,13 +72,13 @@ variable "private-rtb-d-name" {
 variable "public-subnet-a-name" {
   description = "a public subnet name"
   type=string
-  default = "yhjVPC-subnet-public-ap-north-2a"
+  default = "yhjVPC-subnet-public-ap-northeast-2a"
 }
 
 variable "public-subnet-c-name" {
   description = "b public subnet name"
   type=string
-  default = "yhjVPC-subnet-public-ap-north-2c"
+  default = "yhjVPC-subnet-public-ap-northeast-2c"
 }
 
 variable "public-subnet-d-name" {
@@ -93,6 +93,39 @@ variable "public-rtb-name" {
   default = "yhjVPC-rtb-public"
 }
 
+#eip
+variable "eip-nat-a-name" {
+  type = string
+  default = "yhjeip-nat-a-name"
+}
+
+variable "eip-nat-c-name" {
+  type = string
+  default = "yhjeip-nat-c-name"
+}
+
+variable "eip-nat-d-name" {
+  type = string
+  default = "yhjeip-nat-d-name"
+}
+
+# nat gateway
+variable "public-nat-a-name" {
+  type = string
+  default = "yhjNAT-public-a"
+}
+
+variable "public-nat-c-name" {
+  type = string
+  default = "yhjNAT-public-c"
+}
+
+variable "public-nat-d-name" {
+  type = string
+  default = "yhjNAT-public-d"
+}
+
+# security group
 variable "vpc_security_group-name" {
   description = "public route table name"
   type=string
