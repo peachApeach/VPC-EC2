@@ -63,11 +63,11 @@ resource "aws_lb_target_group_attachment" "alb-tg-ec2-2" {
   port = 80
 }
 
-# resource "aws_lb_target_group_attachment" "alb-tg-ec2-3" {
-#   target_group_arn = aws_lb_target_group.alb-tg.arn
-#   target_id = aws_instance.app_server-3.id
-#   port = 80
-# }
+resource "aws_lb_target_group_attachment" "alb-tg-ec2-3" {
+  target_group_arn = aws_lb_target_group.alb-tg.arn
+  target_id = aws_instance.app_server-3.id
+  port = 80
+}
 
 ################################################################################
 # Add Listener 
