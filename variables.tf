@@ -143,3 +143,14 @@ variable "vpc_security_group-name" {
   type=string
   default = "yhjVPC-SecuritiyGroup"
 }
+
+# alb
+variable "alb-sg-name" {
+  type = string
+  default = "yhjalb-sg"
+}
+
+variable "public-alb-name" {
+  type = string
+  default = "yhjalb"
+}
