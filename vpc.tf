@@ -5,7 +5,7 @@ resource "aws_vpc" "yhj-vpc" {
   enable_dns_hostnames = true
   enable_dns_support = true
 
-  tags = {"Name" = "${var.vpc_name}"}
+  tags = {"Name" = "${var.vpc-name}"}
 
 }
 
