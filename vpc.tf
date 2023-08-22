@@ -220,21 +220,21 @@ resource "aws_eip" "eip_nat_d" {
 ################################################################################
 resource "aws_nat_gateway" "public-nat-a" {
   allocation_id = aws_eip.eip_nat_a.id
-  subnet_id = aws_subnet.private-northeast-2a.id
+  subnet_id = aws_subnet.public-subnet-2a.id
   tags = { Name = "${var.public-nat-a-name}"}
   depends_on = [ aws_internet_gateway.yhj-internet-gateway ]
 }
 
 resource "aws_nat_gateway" "public-nat-c" {
   allocation_id = aws_eip.eip_nat_c.id
-  subnet_id = aws_subnet.private-northeast-2c.id
+  subnet_id = aws_subnet.public-subnet-2c.id
   tags = { Name = "${var.public-nat-c-name}"}
   depends_on = [ aws_internet_gateway.yhj-internet-gateway ]
 }
 
 resource "aws_nat_gateway" "public-nat-d" {
   allocation_id = aws_eip.eip_nat_d.id
-  subnet_id = aws_subnet.private-northeast-2d.id
+  subnet_id = aws_subnet.public-subnet-2d.id
   tags = { Name = "${var.public-nat-d-name}"}
   depends_on = [ aws_internet_gateway.yhj-internet-gateway ]
 }
