@@ -16,30 +16,30 @@ resource "aws_security_group_rule" "ec2-alb-Inbound-http" {
   from_port = 80
   to_port = 80
   protocol = "TCP"
-  cidr_blocks = [aws_security_group.alb-sg.id]
+  source_security_group_id = aws_security_group.alb-sg.id
 }
 
 resource "aws_security_group_rule" "ec2-bastion-Inbound-http" {
-  security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
+  security_group_id = aws_security_group.yhjec2-SG.id
   type = "ingress"
   from_port = 80
   to_port = 80
   protocol = "TCP"
-  cidr_blocks = [aws_security_group.yhjVPC-SecurityGroup.id]
+  source_security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
 }
 
 resource "aws_security_group_rule" "ec2-bastion-Inbound-ssh" {
-  security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
+  security_group_id = aws_security_group.yhjec2-SG.id
   type = "ingress"
   from_port = 22
   to_port = 22
   protocol = "TCP"
-  cidr_blocks = [aws_security_group.yhjVPC-SecurityGroup.id]
+  source_security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
 }
 
 # 아웃바운드 규칙 추가
-resource "aws_security_group_rule" "securityGroupOutbound" {
-  security_group_id = aws_security_group.yhjVPC-SecurityGroup.id
+resource "aws_security_group_rule" "ec2-bastion-Outbound" {
+  security_group_id = aws_security_group.yhjec2-SG.id
   type = "egress"
   from_port = 0
   to_port = 0
@@ -55,7 +55,7 @@ resource "aws_instance" "app_server-1" {
   instance_type = "t2.micro"
   key_name = "${var.keyName}"
   subnet_id = aws_subnet.private-northeast-2a.id
-  security_groups = [aws_security_group.yhjec2-SG]
+  security_groups = [aws_security_group.yhjec2-SG.id]
   user_data = <<-EOF
                 #!/bin/bash
                 echo "Hello, World" > index.html

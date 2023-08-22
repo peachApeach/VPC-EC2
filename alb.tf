@@ -1,5 +1,5 @@
 ################################################################################
-# Web Hosting Security Group
+# ALB Security Group
 ################################################################################
 resource "aws_security_group" "alb-sg" {
   vpc_id = aws_vpc.yhj-vpc.id
@@ -29,7 +29,9 @@ resource "aws_security_group_rule" "alb-sg-outbound" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-
+################################################################################
+# Application Load Balancer
+################################################################################
 resource "aws_lb" "alb" {
   name = "${var.public-alb-name}"
   internal = false
