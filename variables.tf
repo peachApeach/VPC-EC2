@@ -3,10 +3,22 @@ variable "keyName" {
   type = string
 }
 
-variable "instance-name" {
+variable "instance-1-name" {
   description = "instance name"
   type=string
-  default = "yhjInstance"
+  default = "yhjInstance-1"
+}
+
+variable "instance-2-name" {
+  description = "instance name"
+  type=string
+  default = "yhjInstance-2"
+}
+
+variable "instance-3-name" {
+  description = "instance name"
+  type=string
+  default = "yhjInstance-3"
 }
 
 variable "server_port" {
