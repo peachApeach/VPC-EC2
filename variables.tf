@@ -1,7 +1,6 @@
 variable "keyName" {
   description = "keyName"
-  type = map
-  default = {}
+  type = string
 }
 
 variable "instance-name" {
