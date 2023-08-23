@@ -72,6 +72,29 @@ resource "aws_route_table_association" "private-northeast-2a" {
 }
 
 ################################################################################
+# Private Subnets - ap-northeast-2b
+################################################################################
+resource "aws_subnet" "private-northeast-2b" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  cidr_block = "172.5.176.0/20"
+  availability_zone = "ap-northeast-2b"
+  # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
+
+  tags = {"Name" = "${var.private-subnet-b-name}"}
+
+}
+
+resource "aws_route_table" "private-northeast-2b" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  tags = {"Name" = "${var.private-rtb-b-name}"}
+}
+
+resource "aws_route_table_association" "private-northeast-2b" {
+  subnet_id = aws_subnet.private-northeast-2b.id
+  route_table_id = aws_route_table.private-northeast-2b.id
+}
+
+################################################################################
 # Private Subnets - ap-northeast-2c
 ################################################################################
 resource "aws_subnet" "private-northeast-2c" {
@@ -130,11 +153,19 @@ resource "aws_subnet" "public-subnet-2a" {
 
 }
 
+resource "aws_subnet" "public-subnet-2b" {
+  vpc_id = aws_vpc.yhj-vpc.id
+  cidr_block = "172.5.64.0/20"
+  availability_zone = "ap-northeast-2b"
+
+  tags = {"Name" = "${var.public-subnet-b-name}"}
+
+}
+
 resource "aws_subnet" "public-subnet-2c" {
   vpc_id = aws_vpc.yhj-vpc.id
   cidr_block = "172.5.16.0/20"
-  availability_zone = "ap-northeast-2c"
-  # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
+  availability_zone = "ap-northeast-2c" 
 
   tags = {"Name" = "${var.public-subnet-c-name}"}
 
@@ -144,7 +175,6 @@ resource "aws_subnet" "public-subnet-2d" {
   vpc_id = aws_vpc.yhj-vpc.id
   cidr_block = "172.5.32.0/20"
   availability_zone = "ap-northeast-2d"
-  # availability_zone_id = "apne2-az1" 둘 중 하나만 지정 
 
   tags = {"Name" = "${var.public-subnet-d-name}"}
 
@@ -159,6 +189,11 @@ resource "aws_route_table" "public-rtb" {
 # 라우팅 테이블에 맵핑 
 resource "aws_route_table_association" "public-rtb-association-2a" {
   subnet_id = aws_subnet.public-subnet-2a.id
+  route_table_id = aws_route_table.public-rtb.id
+}
+
+resource "aws_route_table_association" "public-rtb-association-2b" {
+  subnet_id = aws_subnet.public-subnet-2b.id
   route_table_id = aws_route_table.public-rtb.id
 }
 
